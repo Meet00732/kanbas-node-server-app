@@ -8,8 +8,9 @@ import ModuleRoutes from './modules/routes.js';
 import AssignmentRoutes from './assignments/routes.js';
 
 const app = express();
-app.use(cors({credentials: true,
-    origin: process.env.FRONTEND_URL}));
+// app.use(cors({credentials: true,
+//     origin: process.env.FRONTEND_URL}));
+app.use(cors());
 app.use(express.json());
 
 CourseRoutes(app);
