@@ -24,6 +24,10 @@ function UserRoutes(app) {
     res.json(currentUser);
   };
 
+  const signout = (req, res) => {
+    currentUser = null;
+    res.json(200);
+  };
 
 
   const findAllUsers = async (req, res) => {
