@@ -13,6 +13,18 @@ function UserRoutes(app) {
     res.json(status);
 };
 
+  const signup = async (req, res) => {
+    const user = await dao.findUserByUsername(
+      req.body.username);
+    if (user) {
+      res.status(400).json(
+        { message: "Username already taken" });
+    }
+    currentUser = await dao.createUser(req.body);
+    res.json(currentUser);
+  };
+
+
 
   const findAllUsers = async (req, res) => {
     const users = await dao.findAllUsers();
@@ -33,17 +45,6 @@ function UserRoutes(app) {
     res.json(status);
   };
 
-  const signup = async (req, res) => { 
-    const user = await dao.findUserByUsername(
-      req.body.username);
-    if (user) {
-      res.status(400).json(
-        { message: "Username already taken" });
-    }
-    const currentUser = await dao.createUser(req.body);
-    req.session['currentUser'] = currentUser;
-    res.json(currentUser); 
-   };
   const signin = async (req, res) => { 
     const { username, password } = req.body;
     const currentUser = await dao.findUserByCredentials(username, password);
